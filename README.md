@@ -59,6 +59,8 @@ To run this project using the .jar file
 
 Demonstration video link: https://youtu.be/ZFbUnLAJdas
 
+*NOTE!* - the sql files used in the video are the same files as in the Students_DB_SQL_files folder in the repository
+
 After starting the application, you will be prompted to enter your PostgreSQL database URL, username, and password. 
 Once connected, you can use the following commands:
 
