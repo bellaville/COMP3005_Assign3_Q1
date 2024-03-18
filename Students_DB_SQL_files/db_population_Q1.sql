@@ -1,6 +1,4 @@
 -- SQL code for populating Student database for COMP 3005 assignment 3
--- Name: Anabella Villeneuve
--- Student ID: 101182327
 
 INSERT INTO students (first_name, last_name, email, enrollment_date) VALUES
 ('John', 'Doe', 'john.doe@example.com', '2023-09-01'),
