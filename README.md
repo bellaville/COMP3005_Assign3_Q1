@@ -57,6 +57,8 @@ To run this project using the .jar file
 
 ***HOW TO USE***
 
+Demonstration video link: https://youtu.be/ZFbUnLAJdas
+
 After starting the application, you will be prompted to enter your PostgreSQL database URL, username, and password. 
 Once connected, you can use the following commands:
 
