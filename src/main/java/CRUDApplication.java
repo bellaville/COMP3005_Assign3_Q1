@@ -13,9 +13,7 @@ Upon creating an instance of CRUDApplication the user will be prompted to enter 
 
 public class CRUDApplication {
 
-    private static final String url = "jdbc:postgresql://localhost:5432/Students";
-    private static final String user = "postgres";
-    private static final String password = "Sitbacmm#D47aaa";
+
     private static Connection connection;
 
     /*
@@ -26,14 +24,39 @@ public class CRUDApplication {
     'remove' which removes a student with the specified student_id.
     */
     public CRUDApplication(){ // constructor for the application
-        try{
-            Class.forName("org.postgresql.Driver");
-            connection = DriverManager.getConnection(url, user, password); // establish connection with postgresql
-            if(connection != null){
-                System.out.println("Connected to database successfully!\n");
-            }else{
-                System.out.println("Failed to connect to database");
+        Scanner init = new Scanner(System.in);
+        while(true) {
+            try {
+
+                System.out.print("Enter PostrgeSQL url or type 'exit' to quit: ");
+                String url = init.nextLine();
+                if(url.equals("exit")){
+                    System.out.println("Exiting");
+                    return;
+                }
+                System.out.print("Enter username: ");
+                String user = init.nextLine();
+                System.out.print("Enter password: ");
+                String password = init.nextLine();
+
+                Class.forName("org.postgresql.Driver");
+                connection = DriverManager.getConnection(url, user, password); // establish connection with postgresql
+                if (connection != null) {
+                    System.out.println("Connected to database successfully!\n");
+                } else {
+                    System.out.println("Failed to connect to database");
+                }
+
+                break;
+
+            } catch (Exception e) {
+                System.out.println("Failed to connect to the database. Please check your inputs and try again.");
+                System.out.println(e);
             }
+
+        }
+
+
             Scanner scanner = new Scanner(System.in); // create scanner to read user input
             String input = "";
             while(!input.equals("quit")){ // display all possible commands to the user
@@ -127,15 +150,15 @@ public class CRUDApplication {
                     deleteStudent(student_id);
 
                 }else if(!input.equals("quit")){
-                    System.out.println("invalid command: " + input + "\n"); // invalid command given
+                    System.out.println("INVALID COMMAND: " + input + "\n"); // invalid command given
                 }
             }
-            connection.close(); // close the connection
+            try {
+                connection.close(); // close the connection
+            }catch(Exception e){
+                System.out.println(e);
+            }
 
-        }
-        catch(Exception e){
-            System.out.println(e);
-        }
 
     }
     /*
