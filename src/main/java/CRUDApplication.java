@@ -168,10 +168,10 @@ public class CRUDApplication {
     */
     private boolean isValidID(int id){
         ArrayList<Integer> ids = new ArrayList<Integer>();
-        try{
+        try(
             Statement statement = connection.createStatement();
-            statement.executeQuery("SELECT student_id FROM students");
-            ResultSet resultSet = statement.getResultSet();
+            ResultSet resultSet = statement.executeQuery("SELECT student_id FROM students"))
+        {
 
             while(resultSet.next()){
                 ids.add(resultSet.getInt("student_id"));
@@ -189,10 +189,11 @@ public class CRUDApplication {
     */
     private boolean isValidEmail(String email){
         ArrayList<String> emails = new ArrayList<String>();
-        try{
+        try(
             Statement statement = connection.createStatement();
-            statement.executeQuery("SELECT email FROM students"); // Only select emails
-            ResultSet resultSet = statement.getResultSet();
+            ResultSet resultSet = statement.executeQuery("SELECT email FROM students")) // Only select emails
+        {
+
 
             while(resultSet.next()){
                 emails.add(resultSet.getString("email"));
@@ -208,10 +209,11 @@ public class CRUDApplication {
     Prints out all attributes of all student records in the database.
      */
     public void getAllStudents(){
-        try {
+        try (
             Statement statement = connection.createStatement();
-            statement.executeQuery("SELECT * FROM students ORDER BY student_id ASC");
-            ResultSet resultSet = statement.getResultSet();
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM students ORDER BY student_id ASC"))
+        {
+
 
             System.out.println("student_id\tfirst_name\tlast_name\temail\tenrollment_date\n");
 
@@ -237,10 +239,10 @@ public class CRUDApplication {
     @param enrollment_date: the date of enrollment of the student
      */
     public void addStudent(String first_name, String last_name, String email, java.sql.Date enrollment_date){
-        PreparedStatement preparedStatement = null;
-        try{
-            String sql = "INSERT INTO students (first_name, last_name, email, enrollment_date) VALUES (?, ?, ?, ?)";
-            preparedStatement = connection.prepareStatement(sql);
+        String sql = "INSERT INTO students (first_name, last_name, email, enrollment_date) VALUES (?, ?, ?, ?)";
+        try(
+                PreparedStatement preparedStatement = connection.prepareStatement(sql))
+        {
 
             preparedStatement.setString(1, first_name);
             preparedStatement.setString(2, last_name);
@@ -265,10 +267,10 @@ public class CRUDApplication {
     @param new_email: the email to replace the old email
      */
     public void updateStudentEmail(int student_id, String new_email){
-        PreparedStatement preparedStatement = null;
-        try{
-            String sql = "UPDATE students SET email = ? WHERE student_id = ?";
-            preparedStatement = connection.prepareStatement(sql);
+        String sql = "UPDATE students SET email = ? WHERE student_id = ?";
+        try(
+                PreparedStatement preparedStatement = connection.prepareStatement(sql))
+        {
 
             preparedStatement.setString(1, new_email);
             preparedStatement.setInt(2, student_id);
@@ -290,10 +292,10 @@ public class CRUDApplication {
     @param student_id: id of student to be deleted
      */
     private void deleteStudent(int student_id){
-        PreparedStatement preparedStatement = null;
-        try{
-            String sql = "DELETE FROM students WHERE student_id=?";
-            preparedStatement = connection.prepareStatement(sql);
+        String sql = "DELETE FROM students WHERE student_id=?";
+        try(
+            PreparedStatement preparedStatement = connection.prepareStatement(sql))
+        {
 
             preparedStatement.setInt(1, student_id);
 
