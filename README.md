@@ -1,5 +1,7 @@
 ***CRUD Application for Students database***
 
+Demo link: https://youtu.be/ZFbUnLAJdas
+
 ***DESCRIPTION***
 
 This Java application is designed to manage a PostgreSQL database "Students" for student records. It provides basic CRUD (Create, Read, Update, Delete) 
